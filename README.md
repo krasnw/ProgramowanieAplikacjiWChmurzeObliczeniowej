@@ -1,7 +1,5 @@
 ## Programowanie Aplikacji W Chmurze Obliczeniowej
 
----
-
 W tym repo umieszczone sprawozdania z przedmiotu Programowanie aplikacji w chmurze obliczeniowej
 
 ## Spis treści
