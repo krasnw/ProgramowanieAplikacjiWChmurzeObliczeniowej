@@ -15,7 +15,9 @@ docker build use zadanie1builder
 ```
 
 - Polecenie do zbudowania obrazu, z pobraniem cache z dockerhub, dla architektury amd64 i arm64:  
-> W poleceniach należy zmienić `your_Username` na własną nazwę użytkownika w DockerHub.  
+> Uwaga!  
+W poleceniach należy zmienić `your_Username` na własną nazwę użytkownika w DockerHub.  
+Polecenie zbuduje obraz wieleplatformowy(zadanie dodatkowe)   
 ```zsh
 docker buildx build --cache-from=type=registry,ref=docker.io/prayforstpetersburg1991/zadanie1:cache --cache-to=type=registry,ref=docker.io/your_Username/zadanie1:cache,mode=max -f Dockerfile -t docker.io/your_Username/zadanie1:spr --platform linux/amd64,linux/arm64 --push .
 ```  
