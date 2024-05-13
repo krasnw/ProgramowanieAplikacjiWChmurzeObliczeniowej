@@ -24,3 +24,7 @@ docker buildx build --cache-from=type=registry,ref=docker.io/prayforstpetersburg
 docker pull your_Username/zadanie1:spr && docker run -p 3000:3000 your_Username/zadanie1:spr
 ```
 - Po uruchomieniu kontenera, terminal wyświetla logi
+- Aby zobaczyć ilość warsztw obrazu, należy wpisać:  
+```zsh
+docker inspect your_Username/zadanie1:spr | jq '.[0].RootFS.Layers | length'
+```
