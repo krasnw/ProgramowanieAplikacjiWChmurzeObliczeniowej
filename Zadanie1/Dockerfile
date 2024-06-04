@@ -10,7 +10,7 @@ LABEL maintainer="Uladzislau Krasnavitski"
 
 # kopiowanie plikow aplikacji do katalogu /app
 WORKDIR /app
-COPY app/ .
+COPY src .
 
 # instalacja zaleznosci
 RUN npm install
