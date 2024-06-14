@@ -1,0 +1,43 @@
+services:
+  nginx:
+    ports:
+      - "4001:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      - ./www:/var/www/html
+    networks:
+      - frontend
+      - backend
+
+  php:
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - backend
+    secrets:
+      - mysql_user_password
+
+  mysql:
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+    secrets:
+      - mysql_user_password
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  phpmyadmin:
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: user
+      PMA_PASSWORD_FILE: /run/secrets/mysql_user_password
+    ports:
+      - "6001:80"
+    networks:
+      - backend
+    secrets:
+      - mysql_user_password

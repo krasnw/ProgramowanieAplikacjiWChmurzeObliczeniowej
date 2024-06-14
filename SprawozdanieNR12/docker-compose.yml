@@ -1,0 +1,30 @@
+services:
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - php
+
+  php:
+    build: .
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - mysql
+
+networks:
+  frontend:
+  backend:
+    driver: bridge
+
+secrets:
+  mysql_user_password:
+    file: ./secrets/mysql_user_password.txt
+
+
