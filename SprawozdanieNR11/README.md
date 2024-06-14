@@ -38,6 +38,11 @@ Za pomocą atrybutu `depends_on` w pliku `docker-compose.yml` jest określona ko
 Kontener `mysql` jest uruchamiany jako pierwszy, a następnie `php` oraz `phpMyAdmin`. Po urochomieniu kontenera `php` jest uruchamiany kontener `nginx'.  
 W ten sposób jest zabezpieczona poprawna kolejność uruchamiania kontenerów.
 
+## Sprawdzenie działania
+```bash
+docker compose ps
+```
+
 Do kontenera 'mysql' po uruchomieniu jest importowana baza z katalogu `/data`. Plik z kopią jest podłączany do kontenera `mysql` jako volume.  
 Po stronie 'nginx' można sprawdzić połączenie z bazą danych, oraz pobrać dane.
 

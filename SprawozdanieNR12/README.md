@@ -31,9 +31,17 @@ docker compose down
 ```
 
 ## Opis działania
+W pliku `docker-compose.yml` są zdefiniowane serwisy(w tyn obrazy, oraz zależności), sieci oraz sekrety.  
+W pliku `docker-compose.override.yml` są informacje o konfiguracji kontenerów, takie jak porty, volume oraz zmienne środowiskowe.
+
 Za pomocą atrybutu `depends_on` w pliku `docker-compose.yml` jest określona kolejność uruchamiania kontenerów.  
 Kontener `mysql` jest uruchamiany jako pierwszy, a następnie `php` oraz `phpMyAdmin`. Po uruchomieniu kontenera `php` jest uruchamiany kontener `nginx'.  
 W ten sposób jest zabezpieczona poprawna kolejność uruchamiania kontenerów.
+
+## Sprawdzenie działania
+```bash
+docker compose ps
+```
 
 Do kontenera 'mysql' po uruchomieniu jest importowana baza z katalogu `/data`. Plik z kopią jest podłączany do kontenera `mysql` jako volume.  
 Po stronie 'nginx' można sprawdzić połączenie z bazą danych, oraz pobrać dane.  
