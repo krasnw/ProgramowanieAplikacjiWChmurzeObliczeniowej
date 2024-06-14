@@ -1,0 +1,64 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "4001:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      - ./www:/var/www/html
+    depends_on:
+      - php
+    networks:
+      - frontend
+      - backend
+    
+
+  php:
+    build: .
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - backend
+    secrets:
+      - mysql_user_password
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+    secrets:
+      - mysql_user_password
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: user
+      PMA_PASSWORD_FILE: /run/secrets/mysql_user_password
+    ports:
+      - "6001:80"
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    secrets:
+      - mysql_user_password
+
+networks:
+  frontend:
+  backend:
+    driver: bridge
+
+secrets:
+  mysql_user_password:
+    file: ./secrets/mysql_user_password.txt
